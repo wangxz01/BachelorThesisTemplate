@@ -1,0 +1,152 @@
+%% =====================================================================
+%% whu-form.sty
+%% 武汉大学本科毕业论文（设计）「任务书」「开题报告」LaTeX 模板公共样式
+%%
+%% 用法： \documentclass[UTF8,a4paper,zihao=-4,fontset=fandol]{ctexart}
+%%        \usepackage{whu-form}
+%% 编译： xelatex <filename>.tex   （需要 XeLaTeX + ctex 宏包）
+%%
+%% 依据原件整理：A4 纵向；标题黑体 18pt 居中；表格仿宋小四(12pt)；
+%% 页面与表格框线在各自的 .tex 中按原件单独设定。
+%% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{whu-form}[2026/11/08 v1.0 WHU undergraduate thesis forms]
+
+\RequirePackage{expl3}
+\RequirePackage{fontspec}
+\RequirePackage{geometry}
+\RequirePackage{array}
+\RequirePackage{etoolbox}
+\RequirePackage{amssymb}
+\RequirePackage{xcolor}
+
+%% ---------------------------------------------------------------------
+%% 1. 字体：默认使用 TeX Live 自带的 Fandol 仿宋 / 黑体（跨平台可靠）
+%%    原件为「正文仿宋、标题黑体」。若想改用系统字体，请在
+%%    \usepackage{whu-form} 之前写（示例为 Windows）：
+%%      \newcommand{\WHUFangFont}{仿宋}
+%%      \newcommand{\WHUHeiFont}{黑体}
+%%    macOS 可换为 Songti SC / STHeiti 等。
+%% ---------------------------------------------------------------------
+\providecommand{\WHUFangFont}{FandolFang-Regular.otf}
+\providecommand{\WHUHeiFont}{FandolHei-Regular.otf}
+\setCJKfamilyfont{whufs}{\WHUFangFont}
+\setCJKfamilyfont{whuht}{\WHUHeiFont}
+\newcommand{\whufs}{\CJKfamily{whufs}}
+\newcommand{\whuheiti}{\CJKfamily{whuht}}
+\AtBeginDocument{\whufs}
+
+%% ---------------------------------------------------------------------
+%% 2. 页面 / 表格通用参数（各 .tex 可覆盖）
+%% ---------------------------------------------------------------------
+\geometry{a4paper, top=2.54cm, bottom=2.54cm, left=3.17cm, right=3.17cm}
+\pagestyle{empty}
+\linespread{1.0}
+\setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{4pt}
+\setlength{\arrayrulewidth}{0.5pt}
+\setlength{\extrarowheight}{0pt}
+\renewcommand{\arraystretch}{1.0}
+
+%% ---------------------------------------------------------------------
+%% 3. 标题：原件为黑体 18pt 加粗居中（黑体本身即粗，故不用 \bfseries，
+%%    以免缺少 BoldFont 时产生警告）
+%% ---------------------------------------------------------------------
+\newcommand{\whutitle}[1]{%
+  \begin{center}
+    {\whuheiti\fontsize{18pt}{27pt}\selectfont #1}%
+  \end{center}
+  \vspace{0.4em}%
+}
+
+%% ---------------------------------------------------------------------
+%% 4. 可填写字段（在 .tex 顶部「填写区」用 \Title{...} 等赋值）
+%% ---------------------------------------------------------------------
+\newcommand{\WHUfield}[2]{\@namedef{whu@#1}{#2}}
+\newcommand{\WHUvalue}[1]{\@nameuse{whu@#1}}
+\newcommand{\whublank}[1]{\underline{\hspace{#1}\rule{0pt}{1ex}}}
+
+\WHUfield{title}{}
+\WHUfield{projectnature}{}
+\WHUfield{projecttype}{}
+\WHUfield{projectsource}{}
+\WHUfield{studentname}{}
+\WHUfield{studentid}{}
+\WHUfield{college}{}
+\WHUfield{major}{}
+\WHUfield{advisor}{}
+\WHUfield{advisortitle}{}
+\WHUfield{projectperiod}{\whublank{2.4em}\,年\,\whublank{1.4em}\,月\,至\,%
+  \whublank{2.4em}\,年\,\whublank{1.4em}\,月}
+\WHUfield{projectcontent}{}
+\WHUfield{referencelist}{}
+\WHUfield{schedule}{}
+
+\newcommand{\Title}[1]{\WHUfield{title}{#1}}
+\newcommand{\ProjectNature}[1]{\WHUfield{projectnature}{#1}}
+\newcommand{\ProjectType}[1]{\WHUfield{projecttype}{#1}}
+\newcommand{\ProjectSource}[1]{\WHUfield{projectsource}{#1}}
+\newcommand{\StudentName}[1]{\WHUfield{studentname}{#1}}
+\newcommand{\StudentID}[1]{\WHUfield{studentid}{#1}}
+\newcommand{\College}[1]{\WHUfield{college}{#1}}
+\newcommand{\Major}[1]{\WHUfield{major}{#1}}
+\newcommand{\Advisor}[1]{\WHUfield{advisor}{#1}}
+\newcommand{\AdvisorTitle}[1]{\WHUfield{advisortitle}{#1}}
+\newcommand{\ProjectPeriod}[1]{\WHUfield{projectperiod}{#1}}
+\newcommand{\ProjectContent}[1]{\WHUfield{projectcontent}{#1}}
+\newcommand{\ReferenceList}[1]{\WHUfield{referencelist}{#1}}
+\newcommand{\Schedule}[1]{\WHUfield{schedule}{#1}}
+
+%% 填写提示开关：\showhints 后，空白字段显示浅灰提示， submitting 前删掉即可
+\newif\ifwhuhints
+\whuhintsfalse
+\newcommand{\showhints}{\whuhintstrue}
+\newcommand{\hidehints}{\whuhintsfalse}
+\newcommand{\whufield}[2]{%
+  \@nameuse{whu@#1}%
+  \ifwhuhints
+    \ifcsempty{whu@#1}{{\color{gray}\scriptsize\,#2}}{}%
+  \fi
+}
+
+%% ---------------------------------------------------------------------
+%% 5. 复选框：\whuchk{\WHUvalue{projecttype}}{应用研究}
+%%    值与选项相同时自动打勾，否则留空（宽度不变）
+%% ---------------------------------------------------------------------
+\ExplSyntaxOn
+\cs_new_protected:Npn \whu_chk:nn #1#2
+  {
+    \mbox { （\str_if_eq:eeTF {#1} {#2} {$\checkmark$} {\phantom{$\checkmark$}}）#2 }
+    \allowbreak
+  }
+\newcommand{\whuchk}[2]{\whu_chk:nn{#1}{#2}}
+\ExplSyntaxOff
+
+%% ---------------------------------------------------------------------
+%% 6. 表格单元格：固定高度，模拟 Word 中的精确行高
+%%    \whulabel{高度}{标签}      居中 + 垂直居中
+%%    \whuvaluecell{高度}{内容}  左对齐 + 垂直居中
+%%    \whucontentcell{高度}{内容} 左对齐 + 内容顶端对齐
+%%    注意：三者外层对齐一律用 [c]，这样同一行各列的 height/depth 一致，
+%%    tabular 的行高才等于设定高度（混用 [t] 会把行高撑大约 100pt）。
+%% ---------------------------------------------------------------------
+\newcommand{\whulabel}[2]{\parbox[c][#1][c]{\linewidth}{\centering #2}}
+\newcommand{\whuvaluecell}[2]{\parbox[c][#1][c]{\linewidth}{#2}}
+\newcommand{\whucontentcell}[2]{\parbox[c][#1][t]{\linewidth}{#2}}
+
+%% ---------------------------------------------------------------------
+%% 7. 开题报告正文分节（原件为跨 4 列的大单元格，内含六方面红色提示；
+%%    LaTeX 版改为可跨页的小节，标题即原提示文字）
+%% ---------------------------------------------------------------------
+\newcommand{\proposalpart}[2]{%
+  \par\vspace{0.8em}%
+  {\whuheiti\fontsize{14pt}{21pt}\selectfont #1}\par
+  \vspace{0.2em}%
+  #2\par
+  \ifwhuhints
+    \ifblank{#2}{{\color{gray}\scriptsize（在此填写本部分内容）}}{}%
+  \fi
+  \ifblank{#2}{\vspace{3em}}{}%
+}
+
+\endinput

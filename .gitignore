@@ -1,0 +1,35 @@
+# LaTeX 中间产物
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.tmp
+*.run.xml
+*-blx.bib
+missfont.log
+mfput.log
+
+# 编译输出目录
+build/
+
+# 本地新生成的 PDF 默认不入库，但保留仓库中的两份示例成品
+*.pdf
+!taskbook.pdf
+!proposal.pdf
+
+# 系统与编辑器
+.DS_Store
+*.swp
+.idea/
+.vscode/

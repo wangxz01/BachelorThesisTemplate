@@ -1,0 +1,84 @@
+%% =====================================================================
+%% 武汉大学本科毕业论文（设计）开题报告 —— LaTeX 模板
+%% 依据原件「3-武汉大学本科毕业论文（设计）开题报告.doc」整理
+%%
+%% 编译： xelatex proposal.tex   （建议编译两次；需 XeLaTeX + ctex）
+%% 说明： 只需修改下方「填写区」和文末六个 \proposalpart 的内容。
+%%
+%% 原件说明：第 5 行原为跨 4 列的大单元格，内含红色填写说明——
+%%   「开题报告正文（应包含以下几方面内容：一、选题目的和意义；
+%%     二、国内外研究现状和发展趋势；三、研究内容、研究方法、技术路线
+%%     及可行性分析；四、项目特色与创新点；五、进度安排；六、主要参考文献。）」
+%%   LaTeX 版将其拆成六个可跨页的小节，标题沿用原提示文字；
+%%   红色说明本身不打印（保留在上面的注释里）。
+%% =====================================================================
+\documentclass[UTF8, a4paper, zihao=-4, fontset=fandol]{ctexart}
+\usepackage{whu-form}
+
+%% 原件页面：A4，上下 2.54cm、左右 3.17cm；框线约 0.5pt
+\geometry{a4paper, top=2.54cm, bottom=2.54cm, left=3.17cm, right=3.17cm}
+\setlength{\arrayrulewidth}{0.5pt}
+
+%% ========================== 填写区 ==========================
+\Title{基于深度学习的图像语义分割方法研究}
+\StudentName{张三}
+\StudentID{2020300000000}
+\College{计算机学院}
+\Major{计算机科学与技术}
+\Advisor{李四}
+\AdvisorTitle{教授}
+% \showhints   % 取消注释：空白字段显示浅灰填写提示（定稿前请注释回去）
+%% ============================================================
+
+%% 列宽按原件 16.5 : 36.3 : 13.2 : 34.0 分配；行高 28.35pt(1cm)
+\newlength{\prw}
+\setlength{\prw}{\dimexpr\textwidth-8\tabcolsep-5\arrayrulewidth\relax}
+\newlength{\pra}\setlength{\pra}{0.165\prw}
+\newlength{\prb}\setlength{\prb}{0.363\prw}
+\newlength{\prc}\setlength{\prc}{0.132\prw}
+\newlength{\prd}\setlength{\prd}{0.340\prw}
+\newlength{\prm}
+\setlength{\prm}{\dimexpr\prb+\prc+\prd+4\tabcolsep+2\arrayrulewidth\relax}
+
+\begin{document}
+\whutitle{武汉大学本科毕业论文(设计)开题报告}
+
+\begin{center}
+\begin{tabular}{|p{\pra}|p{\prb}|p{\prc}|p{\prd}|}
+\hline
+%% 1 题目
+\whulabel{28.35pt}{题\ 目}
+& \multicolumn{3}{p{\prm}|}{\whuvaluecell{28.35pt}{\whufield{title}{（填写题目）}}} \\
+\hline
+%% 2 学生姓名 / 学号
+\whulabel{28.35pt}{学生姓名}
+& \whuvaluecell{28.35pt}{\whufield{studentname}{}}
+& \whulabel{28.35pt}{学号}
+& \whuvaluecell{28.35pt}{\whufield{studentid}{}} \\
+\hline
+%% 3 所在学院 / 专业
+\whulabel{28.35pt}{所在学院}
+& \whuvaluecell{28.35pt}{\whufield{college}{}}
+& \whulabel{28.35pt}{专业}
+& \whuvaluecell{28.35pt}{\whufield{major}{}} \\
+\hline
+%% 4 指导教师 / 职称
+\whulabel{28.35pt}{指导教师}
+& \whuvaluecell{28.35pt}{\whufield{advisor}{}}
+& \whulabel{28.35pt}{职称}
+& \whuvaluecell{28.35pt}{\whufield{advisortitle}{}} \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1.2em}
+%% ---------- 开题报告正文：按原件六方面提示分节填写 ----------
+%% 每个 \proposalpart 的第二个花括号内写内容；留空则自动留出填写空间。
+\proposalpart{一、选题目的和意义}{}
+\proposalpart{二、国内外研究现状和发展趋势}{}
+\proposalpart{三、研究内容、研究方法、技术路线及可行性分析}{}
+\proposalpart{四、项目特色与创新点}{}
+\proposalpart{五、进度安排}{}
+\proposalpart{六、主要参考文献}{}
+
+\end{document}

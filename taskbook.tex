@@ -1,0 +1,127 @@
+%% =====================================================================
+%% 武汉大学本科毕业论文（设计）任务书 —— LaTeX 模板
+%% 依据原件「2-武汉大学本科毕业论文（设计）任务书.doc」整理
+%%
+%% 编译： xelatex taskbook.tex   （建议编译两次；需 XeLaTeX + ctex）
+%% 说明： 只需修改下方「填写区」，其余为按原件还原的表格版式。
+%% =====================================================================
+\documentclass[UTF8, a4paper, zihao=-4, fontset=fandol]{ctexart}
+\usepackage{whu-form}
+
+%% 原件页面：A4，上 2.54cm、下 2.30cm、左 2.50cm、右 2.60cm；框线约 1pt
+\geometry{a4paper, top=2.54cm, bottom=2.30cm, left=2.50cm, right=2.60cm}
+\setlength{\arrayrulewidth}{1pt}
+
+%% ========================== 填写区 ==========================
+\Title{基于深度学习的图像语义分割方法研究}
+\ProjectNature{论文}          % 论文 / 设计
+\ProjectType{应用研究}        % 理论研究 / 应用研究 / 实验研究 / 工程设计 / 产品开发
+\ProjectSource{教师科研选题}   % 教师科研选题 / 教师自主选题 / 学生自主选题
+\StudentName{张三}
+\StudentID{2020300000000}
+\College{计算机学院}
+\Major{计算机科学与技术}
+\Advisor{李四}
+\AdvisorTitle{教授}
+\ProjectPeriod{2026 年 12 月 至 2027 年 5 月}  % 留空则打印可手写下划线
+%% 填写区说明：多行内容用 \par 换行；不要在 \\ 后直接写 [数字]，
+%% 否则 LaTeX 会把 [..] 当作 \\ 的可选长度参数而报错。
+\ProjectContent{%
+  1. 明确研究目标与技术指标；\par
+  2. 完成模型设计与对比实验；\par
+  3. 撰写毕业论文并完成答辩准备。%
+}
+\ReferenceList{%
+  {[1]} 作者. 题名[J]. 期刊, 年份, 卷(期): 起止页码.\par
+  {[2]} Author. Title[C]//Conference. Publisher, Year: pages.%
+}
+\Schedule{%
+  2026.12 -- 2027.01：文献调研与方案论证；\par
+  2027.02 -- 2027.04：实验与数据分析；\par
+  2027.05：论文撰写与答辩。%
+}
+% \showhints   % 取消注释：空白字段显示浅灰填写提示（定稿前请注释回去）
+%% ============================================================
+
+%% 列宽按原件 14.3 : 35.3 : 18.7 : 31.7 分配
+\newlength{\tbw}
+\setlength{\tbw}{\dimexpr\textwidth-8\tabcolsep-5\arrayrulewidth\relax}
+\newlength{\tba}\setlength{\tba}{0.143\tbw}
+\newlength{\tbb}\setlength{\tbb}{0.353\tbw}
+\newlength{\tbc}\setlength{\tbc}{0.187\tbw}
+\newlength{\tbd}\setlength{\tbd}{0.317\tbw}
+%% c2..c4 三列合并后的单元格宽度
+\newlength{\tbm}
+\setlength{\tbm}{\dimexpr\tbb+\tbc+\tbd+4\tabcolsep+2\arrayrulewidth\relax}
+
+\begin{document}
+\whutitle{武汉大学本科毕业论文（设计）任务书}
+
+\begin{center}
+\begin{tabular}{|p{\tba}|p{\tbb}|p{\tbc}|p{\tbd}|}
+\hline
+%% 1 课题题目
+\whulabel{34pt}{课题题目}
+& \multicolumn{3}{p{\tbm}|}{\whuvaluecell{34pt}{\whufield{title}{（填写课题题目）}}} \\
+\hline
+%% 2 课题性质
+\whulabel{34pt}{课题性质}
+& \multicolumn{3}{p{\tbm}|}{\whuvaluecell{34pt}{%
+    \whuchk{\WHUvalue{projectnature}}{论文}\qquad
+    \whuchk{\WHUvalue{projectnature}}{设计}}} \\
+\hline
+%% 3 课题类型（选项较多，行高略放大以容纳换行）
+\whulabel{40pt}{课题类型}
+& \multicolumn{3}{p{\tbm}|}{\whuvaluecell{40pt}{%
+    \whuchk{\WHUvalue{projecttype}}{理论研究}%
+    \whuchk{\WHUvalue{projecttype}}{应用研究}%
+    \whuchk{\WHUvalue{projecttype}}{实验研究}%
+    \whuchk{\WHUvalue{projecttype}}{工程设计}%
+    \whuchk{\WHUvalue{projecttype}}{产品开发}}} \\
+\hline
+%% 4 课题来源
+\whulabel{34pt}{课题来源}
+& \multicolumn{3}{p{\tbm}|}{\whuvaluecell{34pt}{%
+    \whuchk{\WHUvalue{projectsource}}{教师科研选题}\quad
+    \whuchk{\WHUvalue{projectsource}}{教师自主选题}\quad
+    \whuchk{\WHUvalue{projectsource}}{学生自主选题}}} \\
+\hline
+%% 5 学生姓名 / 学号
+\whulabel{34pt}{学生姓名}
+& \whuvaluecell{34pt}{\whufield{studentname}{}}
+& \whulabel{34pt}{学\ 号}
+& \whuvaluecell{34pt}{\whufield{studentid}{}} \\
+\hline
+%% 6 所在学院 / 专业
+\whulabel{34pt}{所在学院}
+& \whuvaluecell{34pt}{\whufield{college}{}}
+& \whulabel{34pt}{专\ 业}
+& \whuvaluecell{34pt}{\whufield{major}{}} \\
+\hline
+%% 7 指导教师 / 职称
+\whulabel{34pt}{指导教师}
+& \whuvaluecell{34pt}{\whufield{advisor}{}}
+& \whulabel{34pt}{职\ 称}
+& \whuvaluecell{34pt}{\whufield{advisortitle}{}} \\
+\hline
+%% 8 课题内容及要求（原件行高 170pt）
+\whulabel{170pt}{课题内容及要求}
+& \multicolumn{3}{p{\tbm}|}{\whucontentcell{170pt}{%
+    \whufield{projectcontent}{（填写课题内容及要求）}}} \\
+\hline
+%% 9 参考文献（原件行高 128.25pt）
+\whulabel{128.25pt}{参考文献}
+& \multicolumn{3}{p{\tbm}|}{\whucontentcell{128.25pt}{%
+    建议20篇以上，其中外文文献不低于2篇\par
+    \whufield{referencelist}{}}} \\
+\hline
+%% 10 进度安排（原件行高 113.9pt）
+\whulabel{113.9pt}{进度安排}
+& \multicolumn{3}{p{\tbm}|}{\whucontentcell{113.9pt}{%
+    课题时间：\whufield{projectperiod}{}\par
+    具体安排：\whufield{schedule}{（填写具体安排）}}} \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
