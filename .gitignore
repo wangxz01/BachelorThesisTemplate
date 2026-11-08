@@ -11,6 +11,9 @@
 *.xdv
 *.bbl
 *.blg
+*.bcf
+*bbl-SAVE-ERROR
+*bcf-SAVE-ERROR
 *.nav
 *.snm
 *.vrb
@@ -23,10 +26,11 @@ mfput.log
 # 编译输出目录
 build/
 
-# 本地新生成的 PDF 默认不入库，但保留仓库中的两份示例成品
+# 本地新生成的 PDF 默认不入库，但保留仓库中的三份示例成品
 *.pdf
 !taskbook.pdf
 !proposal.pdf
+!thesis/main.pdf
 
 # 系统与编辑器
 .DS_Store

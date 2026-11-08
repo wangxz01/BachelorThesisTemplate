@@ -1,0 +1,53 @@
+%% =====================================================================
+%% 武汉大学数学与统计学院 本科毕业论文（设计） —— 主文件
+%% 编译：latexmk -xelatex main.tex （自动完成 xelatex → bibtex → xelatex）
+%% 手动：xelatex main.tex → bibtex main → xelatex main.tex → xelatex main.tex
+%% =====================================================================
+\documentclass{whu-math-thesis}
+
+%% 参考文献：GB/T 7714（natbib + gbt7714 + BibTeX）
+%% 采用 BibTeX 后端，不依赖 biber，本地与 Overleaf 均可编译
+\usepackage{natbib}
+\usepackage[sort&compress]{gbt7714}
+\bibliographystyle{gbt7714-numerical}
+\usepackage[unicode,hidelinks]{hyperref}
+
+%% ------------------------ 填写区：只改这里 ------------------------
+\ctitle{一类椭圆型方程有限元方法的误差估计}
+\cschool{数学与统计学院}
+\cmajor{数学与应用数学}       % 亦可用：信息与计算科学 / 统计学 / 数学基地班等
+\cauthor{张三}
+\cnumber{2022300000000}
+\cadvisor{李四\quad 教授}
+\cdate{二〇二七年五月}
+%% ------------------------------------------------------------------
+
+\begin{document}
+
+%% 封面、声明（无页码）
+\maketitlepage
+\makestatement
+
+%% 前言部分（罗马页码）
+\pagenumbering{Roman}
+\include{pages/abstract}     % 中文摘要、英文摘要
+\makecontents                % 目录
+\include{pages/symbols}      % 主要符号表
+
+%% 正文部分（阿拉伯页码）
+\startmainmatter
+\include{pages/chapter1}     % 绪论
+\include{pages/chapter2}     % 预备知识
+\include{pages/chapter3}     % 主要结果与证明
+\include{pages/chapter4}     % 数值实验
+\include{pages/chapter5}     % 总结与展望
+
+%% 结尾部分
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{参考文献}
+\bibliography{ref/refs}
+\include{pages/thanks}       % 致谢
+\include{pages/appendix}     % 附录
+
+\end{document}

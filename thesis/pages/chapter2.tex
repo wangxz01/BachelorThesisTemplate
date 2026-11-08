@@ -1,0 +1,44 @@
+% 第 2 章 预备知识（以下为示例内容，撰写论文时请替换）
+\chapter{预备知识}
+
+\section{记号与函数空间}
+
+设 $\Omega\subset\R^n$ 为有界 Lipschitz 区域。记 $L^2(\Omega)$ 上的内积与范数为
+\begin{equation}\label{eq:l2}
+\inner{u}{v}_{L^2(\Omega)}=\int_\Omega u v \dd x, \qquad
+\norm{u}_{L^2(\Omega)}=\sqrt{\inner{u}{u}_{L^2(\Omega)}}.
+\end{equation}
+
+\begin{definition}[Sobolev 空间 $H^1(\Omega)$]
+$H^1(\Omega)=\bigl\{u\in L^2(\Omega):\ \partial_{x_i}u\in L^2(\Omega),\ i=1,\dots,n\bigr\}$，
+其中导数在弱意义下理解；$H_0^1(\Omega)$ 表示 $C_c^\infty(\Omega)$ 在 $H^1$ 范数下的闭包。
+\end{definition}
+
+\section{基本不等式与引理}
+
+\begin{lemma}[Cauchy--Schwarz 不等式]\label{lem:cs}
+对任意 $u,v\in L^2(\Omega)$，有
+\begin{equation}\label{eq:cs}
+\abs{\int_\Omega u v \dd x}\le \norm{u}_{L^2(\Omega)}\norm{v}_{L^2(\Omega)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+对任意 $\lambda\in\R$，由 $\int_\Omega (u-\lambda v)^2\dd x\ge 0$ 展开得
+$\norm{u}^2-2\lambda\inner{u}{v}+\lambda^2\norm{v}^2\ge 0$。
+取 $\lambda=\inner{u}{v}/\norm{v}^2$（$\norm{v}=0$ 时结论显然），即得 \eqref{eq:cs}。
+\end{proof}
+
+\begin{remark}
+引理 \ref{lem:cs} 在 Hilbert 空间 $H$ 上同样成立，只需把 $L^2$ 内积换成 $H$ 的内积；
+本文后续均在 $H=H_0^1(\Omega)$ 上使用这一形式。
+\end{remark}
+
+\section{弱形式}
+
+对式 \eqref{eq:model} 两边乘以测试函数 $v\in H_0^1(\Omega)$ 并在 $\Omega$ 上分部积分，得到
+\begin{equation}\label{eq:weak-form}
+a(u,v)\coloneqq \int_\Omega \bigl(\nabla u\cdot\nabla v + uv\bigr)\dd x
+= \int_\Omega f v \dd x, \qquad \forall v\in H_0^1(\Omega).
+\end{equation}
+由式 \eqref{eq:cs} 可知 $a(\cdot,\cdot)$ 有界；再由 Poincaré 不等式可得其强制性。

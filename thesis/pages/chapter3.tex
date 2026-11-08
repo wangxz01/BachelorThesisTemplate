@@ -1,0 +1,59 @@
+% 第 3 章 主要结果与证明（以下为示例内容，撰写论文时请替换）
+\chapter{主要结果与证明}
+
+\section{弱解的存在唯一性}
+
+\begin{theorem}[Lax--Milgram 定理]\label{thm:lm}
+设 $H$ 为实 Hilbert 空间，$a(\cdot,\cdot)$ 为 $H\times H$ 上的双线性型，
+且存在常数 $M,\alpha>0$ 使得对任意 $u,v\in H$ 有
+$\abs{a(u,v)}\le M\norm{u}_H\norm{v}_H$ 与 $a(u,u)\ge \alpha\norm{u}_H^2$。
+则对任意 $f\in H'$，存在唯一的 $u\in H$ 满足
+\begin{equation}\label{eq:lm}
+a(u,v)=\langle f,v\rangle, \qquad \forall v\in H,
+\end{equation}
+并且 $\norm{u}_H\le \alpha^{-1}\norm{f}_{H'}$。
+\end{theorem}
+
+\begin{proof}
+对每个固定的 $u\in H$，映射 $v\mapsto a(u,v)$ 是 $H$ 上的有界线性泛函，
+由 Riesz 表示定理存在唯一 $Au\in H$ 使得 $a(u,v)=\inner{Au}{v}_H$。
+强制性给出 $\alpha\norm{u}_H^2\le a(u,u)=\inner{Au}{u}_H\le\norm{Au}_H\norm{u}_H$，
+从而 $A$ 单射且值域闭；再由 $A$ 的伴随算子同理可证值域稠密，故 $A$ 为双射，
+式 \eqref{eq:lm} 存在唯一解。估计式由 $\alpha\norm{u}_H^2\le\langle f,u\rangle\le\norm{f}_{H'}\norm{u}_H$ 得到。
+\end{proof}
+
+\begin{corollary}\label{cor:exist}
+变分问题 \eqref{eq:weak-form} 存在唯一弱解 $u\in H_0^1(\Omega)$，且
+$\norm{u}_{H^1(\Omega)}\le C\norm{f}_{L^2(\Omega)}$，其中 $C$ 仅依赖于 $\Omega$。
+\end{corollary}
+
+\section{有限元离散与误差估计}
+
+设 $\mathcal{T}_h$ 为 $\Omega$ 的拟一致剖分，$V_h\subset H_0^1(\Omega)$ 为分片线性有限元空间。
+离散问题为：求 $u_h\in V_h$ 使得
+\begin{equation}\label{eq:discrete}
+a(u_h,v_h)=\int_\Omega f v_h \dd x,\qquad \forall v_h\in V_h.
+\end{equation}
+
+\begin{proposition}[Céa 引理]\label{prop:cea}
+设 $u$ 与 $u_h$ 分别为 \eqref{eq:weak-form} 与 \eqref{eq:discrete} 的解，则
+\begin{equation}\label{eq:cea}
+\norm{u-u_h}_{H^1(\Omega)}\le \frac{M}{\alpha}\inf_{v_h\in V_h}\norm{u-v_h}_{H^1(\Omega)}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+由 Galerkin 正交性 $a(u-u_h,v_h)=0$ 及强制性、有界性，
+取 $v_h=u_h-w_h$（$w_h\in V_h$ 任意）即得 \eqref{eq:cea}。
+\end{proof}
+
+\begin{example}
+若 $u\in H^2(\Omega)$，由插值估计 $\inf_{v_h\in V_h}\norm{u-v_h}_{H^1}\le Ch\abs{u}_{H^2}$
+及式 \eqref{eq:cea} 可得能量范数下的一阶收敛；结合 Aubin--Nitsche 技巧可得
+$\norm{u-u_h}_{L^2(\Omega)}=O(h^2)$。第 4 章的数值实验将验证这一收敛阶。
+\end{example}
+
+\begin{remark}
+上述结论对更一般的 coercive 双线性型同样成立；若采用非协调元或间断有限元方法，
+则需相应修改证明，可参见 \cite{brenner2008,ciarlet1978}。
+\end{remark}

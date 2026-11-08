@@ -1,0 +1,24 @@
+% 附录（示例内容，撰写论文时请替换）
+\chapter*{附录：补充推导}
+\addcontentsline{toc}{chapter}{附录}
+
+\section*{A.1\quad 分部积分公式}
+
+设 $u\in H^2(\Omega)$、$v\in H_0^1(\Omega)$，由 Green 公式有
+\begin{align}
+\int_\Omega (-\Delta u) v \dd x
+&= \int_\Omega \nabla u\cdot\nabla v \dd x
+   - \int_{\partial\Omega} \frac{\partial u}{\partial n} v \dd s \notag\\
+&= \int_\Omega \nabla u\cdot\nabla v \dd x,
+\end{align}
+其中最后一步用到 $v|_{\partial\Omega}=0$。由此结合式 \eqref{eq:model} 即得弱形式 \eqref{eq:weak-form}。
+
+\section*{A.2\quad 常用记号速查}
+
+\begin{align*}
+\R^n &: \ n\text{-dimensional Euclidean space},\\
+H_0^1(\Omega) &: \ \text{closure of } C_c^\infty(\Omega) \text{ in } H^1(\Omega),\\
+\norm{u}_{H^1}^2 &= \norm{u}_{L^2}^2 + \norm{\nabla u}_{L^2}^2.
+\end{align*}
+
+（附录内容为模板示例，可替换为补充证明、程序清单或详细数据。）
